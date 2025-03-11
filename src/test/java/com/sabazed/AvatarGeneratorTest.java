@@ -1,14 +1,12 @@
 package com.sabazed;
 
 import com.sabazed.model.ThemeType;
-import com.sabazed.utils.exception.ResourceLoadingException;
+import com.sabazed.utils.exception.GeneratorException;
 import lombok.val;
-import org.apache.batik.transcoder.TranscoderException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static com.sabazed.utils.HelperUtils.writeResourceContent;
@@ -18,7 +16,7 @@ class AvatarGeneratorTest {
   private AvatarGenerator avatarGenerator;
 
   @BeforeEach
-  void setUp() throws ResourceLoadingException, NoSuchAlgorithmException {
+  void setUp() throws GeneratorException {
     avatarGenerator = new AvatarGenerator();
   }
 
@@ -55,23 +53,13 @@ class AvatarGeneratorTest {
   }
 
   @Test
-  void testGeneratePngAvatars() throws IOException, TranscoderException {
+  void testGeneratePngAvatars() throws IOException, GeneratorException {
     for (int i = 0; i < 16; i++) {
       for (var themeType : List.of(ThemeType.A, ThemeType.B, ThemeType.C)) {
         val png = avatarGenerator.generatePng("Starcrasher", "%02d".formatted(i), themeType, false);
         writeResourceContent("/avatar-%02d-%s.png".formatted(i, themeType), png);
       }
     }
-  }
-
-  @Test
-  void testGeneratePngAvatars1() throws IOException, TranscoderException {
-    val i = 15;
-    val themeType = ThemeType.B;
-    val png = avatarGenerator.generatePng("Starcrasher", "%02d".formatted(i), themeType, false);
-    writeResourceContent("/avatar-%02d-%s.png".formatted(i, themeType), png);
-
-
   }
 
 }
