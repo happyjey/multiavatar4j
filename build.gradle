@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.sabazed'
-version = '1.0.0'
+version = '1.1.0'
 
 sourceCompatibility = "21"
 targetCompatibility = "21"
@@ -16,6 +16,7 @@ repositories {
 ext {
     lombokVersion = "1.18.36"
     jacksonVersion = "2.18.3"
+    batikVersion = "1.18"
 }
 
 dependencies {
@@ -24,6 +25,9 @@ dependencies {
     implementation "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    implementation "org.apache.xmlgraphics:batik-transcoder:$batikVersion"
+    implementation "org.apache.xmlgraphics:batik-codec:$batikVersion"
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

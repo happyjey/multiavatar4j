@@ -49,4 +49,9 @@ public class HelperUtils {
 		Files.writeString(new File(OUTPUT_DIR + path).toPath(), content);
 	}
 
+	public static void writeResourceContent(String path, byte[] content) throws IOException {
+		Files.createDirectories(Paths.get(OUTPUT_DIR));
+		Files.write(new File(OUTPUT_DIR + path).toPath(), content);
+	}
+
 }

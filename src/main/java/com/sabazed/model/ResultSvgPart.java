@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class ResultSvgPart extends AbstractSvgPart {
 
   private static final String SVG_TEMPLATE = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 231 231\">%s%s%s%s%s%s</svg>";
+  private static final Pattern COLOR_PATTERN = Pattern.compile("#(.*?);");
 
   private final String defaultPart;
   private final ThemeType defaultTheme;
@@ -70,17 +71,15 @@ public class ResultSvgPart extends AbstractSvgPart {
                              Function<ThemeSvgPart, String[]> themeExtractor, Function<SvgPart, String> svgPartExtractor) {
     val colors = themeExtractor.apply(themes.get(partType).get(themeType));
     var svgString = svgPartExtractor.apply(svgParts.get(partType));
-    val result = findAllMatch("#(.*?);", svgString).stream()
-        .map(c -> c.substring(0, c.length() - 1)).toList();
+    val result = findAllMatch(svgString);
     for (int i = 0; i < result.size(); i++) {
-      svgString = svgString.replaceFirst(result.get(i), colors[i]);
+      svgString = svgString.replaceFirst(result.get(i), colors[i] + ";");
     }
     return svgString;
   }
 
-  private List<String> findAllMatch(String pattern, String svgString) {
-    Pattern p = Pattern.compile(pattern);
-    Matcher matcher = p.matcher(svgString);
+  private List<String> findAllMatch(String svgString) {
+    Matcher matcher = COLOR_PATTERN.matcher(svgString);
     List<String> matches = new ArrayList<>();
     while (matcher.find()) {
       matches.add(matcher.group());

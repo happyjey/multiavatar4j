@@ -7,6 +7,8 @@ In total, it is possible to generate **12,230,590,464** unique avatars.<br/>
 
 `multiavatar4j` is a dependency created as a Java alternative for [this JavaScript project](https://github.com/multiavatar/Multiavatar).
 
+It supports generating avatars based on a seed string, and also allows for customizing the avatar by choosing a specific theme and color.
+The output is an SVG string, or byte array of the generated avatar converted to a PNG image.
 ### Installation ###
 
 To include `multiavatar4j` in your project, add the following repository and dependency:
@@ -73,7 +75,7 @@ Every avatar consists of 6 parts:
 Also, there are different versions of different parts. In some final avatars, additional parts are hidden with transparency (`none` for the color) 
 to create different shapes by re-using the same code. Also, each avatar has 3 unique color themes that are defined in the script.<br/>
 In total, there are: `16 characters x 3 versions/themes = 48 initial unique avatars`.<br/>
-You can see them all by opening the `src/main/resources/index.html` file in your browser.
+You can see them all by running the unit tests which generate html and png files of the initial avatars.
 
 To create new avatars, the Multiavatar script mixes different parts of different avatars, and different color themes.
 The total number of unique avatars: 48^6 = 12,230,590,464
