@@ -25,6 +25,10 @@ public class AvatarGenerator {
     this.svgParts = HelperUtils.loadResource("/svg-parts.json", SvgPartCollection.class);
   }
 
+  public String generate(String seed) {
+    return generate(seed, null, null, false);
+  }
+
   public String generate(String seed, String partType, ThemeType themeType, boolean withoutEnv) {
     if (seed.isEmpty()) {
       return "";

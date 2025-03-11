@@ -1,17 +1,13 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'com.sabazed'
-version = '1.0-SNAPSHOT'
+version = '1.0.0'
 
-jar {
-    enabled = false
-}
-
-java {
-    sourceCompatibility = "21"
-}
+sourceCompatibility = "21"
+targetCompatibility = "21"
 
 repositories {
     mavenCentral()
@@ -31,6 +27,24 @@ dependencies {
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+wrapper {
+    gradleVersion = "8.10"
+    distributionType = Wrapper.DistributionType.ALL
 }
 
 test {
